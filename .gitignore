@@ -1,0 +1,56 @@
+# --- Backend ---
+backend/venv/
+backend/.env
+backend/.env.*
+backend/__pycache__/
+backend/*.sqlite
+backend/migrations/
+backend/app/__secure_config.py
+backend/app/instance/  # Pasta instance do Flask (se aplicável)
+backend/*.py[cod]     # Adiciona outros tipos de cache Python
+backend/*.pytest_cache/
+backend/.coverage      # Cobertura de testes
+
+# --- Frontend ---
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.eslintcache
+frontend/coverage/
+frontend/build/
+frontend/.pnp
+frontend/.pnp.js
+frontend/.next/       # Next.js (se usar)
+frontend/.svelte-kit/ # SvelteKit (se usar)
+
+# --- Geral ---
+.DS_Store
+*.log
+dist/
+.env.test
+.env.development.local
+.env.production.local
+*.swp  # Arquivos temporários do Vim
+*.swo
+
+# Docker
+.dockerignore
+*.dockerfile
+docker-compose.override.yml  # Configurações locais do Docker
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Sistema
+Thumbs.db  # Arquivos de cache do Windows
+ehthumbs.db
+Desktop.ini
+
+# Python específico
+*.egg-info/
+__pycache__/
+.python-version
+.pytest_cache/
+.mypy_cache/
