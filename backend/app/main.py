@@ -1,7 +1,7 @@
 from sqlalchemy import inspect
 from fastapi import FastAPI
 
-from app.models import User, Game, Review  # Importe explicitamente
+from app.models import User, Game, Review  
 
 app = FastAPI()
 
@@ -9,7 +9,7 @@ app = FastAPI()
 def home():
     return {"message": "GameTrack API rodando!"}
 
-from .db import Base, engine
+from .database.db import Base, engine
 
 def create_tables():
     print("Tabelas a serem criadas:", [t.name for t in Base.metadata.sorted_tables])

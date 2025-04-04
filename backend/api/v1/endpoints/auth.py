@@ -1,0 +1,1 @@
+from app.__secure_config import DEMO_ACCOUNT

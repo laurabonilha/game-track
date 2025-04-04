@@ -1,31 +1,28 @@
 import os
 from pathlib import Path
+from app.__secure_config import DB_USER, DB_PASS
 
 class Config:
-    # Configurações básicas (valores padrão)
-    DB_HOST = os.getenv("DB_HOST", "localhost")
-    DB_PORT = os.getenv("DB_PORT", "5432")
-    DB_NAME = "gametrack"
-
     def __init__(self):
-        # Tenta carregar credenciais seguras
-        try:
-            from .__secure_config import DB_USER as secure_user, DB_PASS as secure_pass
-            self.DB_USER = secure_user
-            self.DB_PASS = secure_pass
-        except ImportError:
-            pass  # Mantém os valores padrão
+        self.DB_HOST = os.getenv("DB_HOST", "localhost")
+        self.DB_PORT = os.getenv("DB_PORT", "5432")
+        self.DB_NAME = os.getenv("DB_NAME", "gametrack")
+        self._load_credentials()
+
+    def _load_credentials(self):
+        """Carrega credenciais SEM fallback inseguro"""
+        self.DB_USER = os.getenv("DB_USER", DB_USER)
+        self.DB_PASS = os.getenv("DB_PASS", DB_PASS)
 
     @property
     def DATABASE_URL(self):
-        return f"postgresql://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        if not hasattr(self, "DB_USER") or not hasattr(self, "DB_PASS"):
+            raise RuntimeError("Credenciais do banco não configuradas!")
+        return (
+            "postgresql+psycopg2://"
+            f"{self.DB_USER}:{self.DB_PASS}@"
+            f"{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+            "?client_encoding=utf8"
+        )
 
-class ProdConfig(Config):
-    """Configurações para produção"""
-    def __init__(self):
-        super().__init__()  # Herda valores padrão
-        self.DB_USER = os.getenv("DB_USER", self.DB_USER)  # Fallback para valor padrão
-        self.DB_PASS = os.getenv("DB_PASS", self.DB_PASS)
-
-# Configuração automática
-config = ProdConfig() if os.getenv("ENV") == "prod" else Config()
+config = Config()
