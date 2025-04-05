@@ -1,9 +1,11 @@
 from sqlalchemy import inspect
 from fastapi import FastAPI
-
-from app.models import User, Game, Review  
+from backend.app.models.models import User, Game, Review
+from api.v1.endpoints import auth  
 
 app = FastAPI()
+
+app.include_router(auth.router)
 
 @app.get("/")
 def home():

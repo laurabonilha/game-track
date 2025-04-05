@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from app.__secure_config import DB_USER, DB_PASS
+from backend.app.core.__secure_config import DB_USER, DB_PASS
 
 class Config:
     def __init__(self):
@@ -19,10 +19,9 @@ class Config:
         if not hasattr(self, "DB_USER") or not hasattr(self, "DB_PASS"):
             raise RuntimeError("Credenciais do banco não configuradas!")
         return (
-            "postgresql+psycopg2://"
+            "postgresql+asyncpg://"
             f"{self.DB_USER}:{self.DB_PASS}@"
             f"{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
-            "?client_encoding=utf8"
         )
 
 config = Config()

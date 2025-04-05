@@ -8,6 +8,9 @@ backend/migrations/
 backend/app/__secure_config.py
 /app/__secure_config.py
 */__secure_config.py
+**/__secure_config.py
+**/__secure_config.pyc
+**/__secure_config.pyo
 backend/app/instance/  # Pasta instance do Flask (se aplicável)
 backend/*.py[cod]     # Adiciona outros tipos de cache Python
 backend/*.pytest_cache/

@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from sqlalchemy import Column,  Integer, String, Float, Boolean, DateTime
-from app.database.db import Base
+from backend.app.database.db import Base
 
 # Modelando as tabelas User, Game e Review usando SQLAlchemy
 
